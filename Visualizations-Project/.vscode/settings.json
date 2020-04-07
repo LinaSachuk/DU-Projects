@@ -1,0 +1,10 @@
+{
+    "python.pythonPath": "/Users/Lina/opt/anaconda3/bin/python",
+    "cSpell.words": [
+        "flask",
+        "pymongo"
+    ],
+    "cSpell.ignoreWords": [
+        "flask"
+    ]
+}
