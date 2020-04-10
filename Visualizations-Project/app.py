@@ -1,9 +1,10 @@
 import os
-from flask import request
+from flask import request, jsonify, make_response
 from flask import Flask, render_template, url_for, template_rendered
 from pymongo import MongoClient
 import urllib.parse
 import json
+from bson import json_util, ObjectId
 import requests
 import csv
 
@@ -18,6 +19,7 @@ client = MongoClient(
 # Connect to the "nobel" database
 db = client.nobel
 # ================================
+
 
 # Create an instance of Flask
 app = Flask(__name__)
@@ -34,18 +36,33 @@ def home():
     return render_template("index.html", facts=facts)
 
 
-# # Route that will trigger the scrape function
-# @app.route("/scrape")
-# def scrape():
+@app.route('/prizes')
+def prizes():
+    docs = []
+    for doc in db.prizes.find():
+        doc.pop('_id')
+        docs.append(doc)
+        res = jsonify(docs)
 
-#     # Run the scrape function
-#     mars_data = scrape_mars.scrape_info()
+    with open('prizes.json', 'w') as json_file:
+        json.dump(docs, json_file)
 
-#     # Update the Mongo database using update and upsert=True
-#     mongo.db.collection.update({}, mars_data, upsert=True)
+    return res
 
-#     # Redirect back to home page
-#     return redirect("/")
+
+@app.route("/data")
+def get_data():
+    prize = db.prizes.find_one()
+
+    jsonData = json.dumps(prize,  default=str)
+    return jsonData
+
+
+# @app.route('/data')
+# def get_data():
+#     d = db.prizes.find_one()
+#     for i in db.prizes.find():
+#         return json.dumps(i, indent=4, default=json_util.default)
 
 
 if __name__ == "__main__":

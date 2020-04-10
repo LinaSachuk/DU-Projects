@@ -15,4 +15,6 @@ Literature
 Peace
 Economic Sciences
 
-Data has information about winner's name, gender, motivation, country of birth, prizes won ....
+https://assets.datacamp.com/production/repositories/1838/datasets/f402fa7be837b9cd4890f4e1c59a7377693ba36c/laureates.json
+
+https://assets.datacamp.com/production/repositories/1838/datasets/3fde64719bc3226b593a1c261f715566ea6284b2/prizes.json

@@ -115,3 +115,8 @@ prize_fields = list(prize.keys())
 
 laureate_fields = list(laureate.keys())
 # print(laureate_fields) #['_id', 'id', 'firstname', 'surname', 'born', 'died', 'bornCountry', 'bornCountryCode', 'bornCity', 'diedCountry', 'diedCountryCode', 'diedCity', 'gender', 'prizes']
+
+
+# The number of distinct countries of laureate affiliation for prizes
+count = len(db.laureates.distinct('prizes.affiliations.country'))
+print(count)
