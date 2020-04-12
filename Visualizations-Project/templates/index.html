@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+ <script src="https://d3js.org/d3.v5.min.js" charset="utf-8" charset="utf-8"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
@@ -64,7 +65,7 @@
 
   </div>
    
-
+  <script type="text/javascript" src="{{ url_for('static', filename='js/logic.js') }}"></script>
 <!-- Contact Section -->
 <!-- Footer -->
 <footer class="w3-center" id="contact">
@@ -77,10 +78,7 @@
       
     </div>
   </footer>
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
-  <script type="text/javascript" src="{{ url_for('static', filename='js/logic.js') }}"></script>
+    
 </body>
 
 </html>

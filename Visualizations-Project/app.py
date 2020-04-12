@@ -44,19 +44,25 @@ def prizes():
         docs.append(doc)
         res = jsonify(docs)
 
-    with open('prizes.json', 'w') as json_file:
-        json.dump(docs, json_file)
+    # with open('prizes.json', 'w') as json_file:
+    #     json.dump(docs, json_file)
 
     return res
 
-
-@app.route("/data")
+# Working!
+@app.route('/data')
 def get_data():
     prize = db.prizes.find_one()
 
-    jsonData = json.dumps(prize,  default=str)
-    return jsonData
+    data = json.dumps(prize,  default=str)
+    return data
 
+
+# @app.route("/get-data", methods=['GET', 'POST'])
+# def returnProdData():
+#     f = db.prizes.find_one()
+
+#     return jsonify(f)
 
 # @app.route('/data')
 # def get_data():
