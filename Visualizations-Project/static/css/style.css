@@ -12,9 +12,19 @@ body {
 } */
 }
 
-h4 {
+img {
+  width: 100%;
+}
+
+.golden {
+  /* font-size: 64px; */
+  background: linear-gradient(#3a3806 40%, #e4cda4 60%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+h2 {
   padding: 1%;
-  color: #814caf;
 }
 
 .fa {
@@ -30,23 +40,37 @@ h4 {
 }
 
 .animeCircle {
-  height: 10%;
-  width: 10%;
+  /* height: 10%;
+  width: 10%; */
 }
 
 .el {
   position: absolute;
   opacity: 0.9;
   width: 0.04%;
-  height: 20%;
-  margin: 8.7% 0% 0% 36.4%;
+  height: 25%;
+  margin: 9% 0% 0% 40%;
   /* margin: auto; */
-
-  transform-origin: 30% 67%;
-  background: white;
+  transform-origin: 30% 90%;
+  background: #e3c591;
 }
 
 .table {
   margin: auto;
   padding: 4%;
+}
+
+#prizeByYear {
+  /* border-style: dashed; */
+  margin: auto;
+}
+
+.nobelCards {
+  border-style: dotted;
+  border-color: #e3c591;
+  margin: 3%;
+}
+
+strong {
+  font-weight: bold !important;
 }
