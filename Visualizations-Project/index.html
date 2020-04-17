@@ -4,18 +4,22 @@
     <meta charset="UTF-8">
     <title>NOBEL</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.js" integrity="sha256-nnFnuz7rC1JLnvsb8M7A9aXcRHTpUN4vYA26t2UO+dQ=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js" integrity="sha256-hBMojZuWKocCflyaG8T19KBq9OlTlK39CTxb8AUWKhY=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js" integrity="sha256-hBMojZuWKocCflyaG8T19KBq9OlTlK39CTxb8AUWKhY=" crossorigin="anonymous"></script>
+    <!--Plotly-->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+
     <!-- Leaflet JS & CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-  integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-  crossorigin=""/>
-<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-  integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-  crossorigin=""></script>
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+    crossorigin=""></script>
 
     <!-- d3 JavaScript -->
     <script src="https://d3js.org/d3.v4.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!-- Our CSS -->
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
 
@@ -65,23 +69,6 @@
 </div>
 
 
-<!--year selector-->
-<div class="jumbotron container">
- <div class="container">
-    <div class="row">
-      <div class="col-sm-12 col-md-12 col-lg-12 p-5">
-        <div class="well text-center year-selector">
-          <h4>Select a year</h4>
-          <select id="selDataset"  class="dropdown-content" onchange="optionChanged(this.value)"></select>
-        </div>
-      </div>
-
-      <div id="prizeByYear" class="row">
-      </div>
-      </div>
- </div>
-</div>
-
 
 
 
@@ -95,21 +82,43 @@
       </div>
 
 
-      <div class="col-sm-12 col-md-5 p-5">
-        <div id="gauge"></div>
-      </div>
-      </div>
 
 
     <div class="row">
-      <div class="col-sm-12 col-md-12">
+      <div class="col-sm-12 col-md-12 col-lg-7 m-3">
         <div id="bubble"></div>
+      </div>
+      
+
+      <div class="col-sm-12 col-md-5 col-lg-4">
+        <div id="gauge"></div>
+      </div>
       </div>
     </div>
      
   </div>
 <!-- map div -->
     <div id="map"></div>
+
+
+
+
+<!-- year selector--> 
+<div class="jumbotron container">
+  <div class="container">
+     <div class="row">
+       <div class="col-sm-12 col-md-12 col-lg-12 p-5">
+         <div class="well text-center year-selector">
+           <h4>Select a year</h4>
+           <select id="selDataset"  class="dropdown-content" onchange="optionChanged(this.value)"></select>
+         </div>
+       </div>
+ 
+       <div id="prizeByYear" class="row">
+       </div>
+       </div>
+  </div>
+ </div>
 
 
 
@@ -127,7 +136,7 @@
     <script type="text/javascript" src="static/js/config.js"></script>
       <!-- JS  -->
     <script type="text/javascript" src="static/js/logic.js"></script>
-    <!-- <script type="text/javascript" src="static/js/logic2.js"></script> -->
+    <script type="text/javascript" src="static/js/logic2.js"></script> 
     <!-- <script type="text/javascript" src="static/js/logic3.js"></script> -->
     <!-- <script type="text/javascript" src="static/js/logic4.js"></script> -->
 

@@ -4,6 +4,8 @@
 // })
 
 
+
+
 // adding header with Nobel Prize Facts table - scraped data from Nobel.org web site
 d3.json('../static/data/facts.json', function (response) {
 
@@ -123,7 +125,7 @@ function optionChanged() {
 // Incoming data is internally referred to as data
 // 1967 1977 2003
 function myPlot(fyear = '2003') {
-    console.log('fyear:', fyear)
+    // console.log('fyear:', fyear)
 
     // reading a prizes json 
     d3.json('../static/data/prizes.json', function (prizes) {
@@ -133,243 +135,317 @@ function myPlot(fyear = '2003') {
         d3.json('../static/data/laureates.json', function (laureates) {
             console.log('laureates:', laureates)
 
-            // array with unique values: 30 countries
-            var countries = laureates.map(d => d.prizes[0].affiliations[0].country);
-            console.log('countries:', countries)
 
-            unique_countries = countries.filter((v, i, a) => a.indexOf(v) === i);
-            console.log('unique_countries:', unique_countries)
-
-            // Counts how many total prizes each country has 
-            let countObject = countries.reduce(
-                (map, value) => { map[value] = (map[value] || 0) + 1; return map },
-                {}
-            )
-            console.log('countObject:', countObject)
+            d3.csv("../static/data/nobel.csv", function (data) {
+                csvData = data;
+                console.log('csvData:', data)
 
 
-            // array with unique values: 119 years
-            var years = prizes.map(d => d.year);
-            years = years.filter((v, i, a) => a.indexOf(v) === i);
-            console.log('years:', years);
 
-            // array with unique values: 6 categories
-            var categories = prizes.map(d => d.category);
-            categories = categories.filter((v, i, a) => a.indexOf(v) === i);
-            console.log('categories:', categories);
 
-            // Add ids to dropdown menu
-            for (var i = 0; i < years.length; i++) {
-                selectBox = d3.select('#selDataset');
-                selectBox.append('option').text(years[i]);
-            }
+                // array with unique values: 30 countries
+                var countries = laureates.map(d => {
+                    return d.prizes[0].affiliations[0].country
 
-            // filter nobel prizes by year
-            var chosenYear = prizes.filter(i => i.year.toString() === fyear);
-            console.log('chosenYear:', chosenYear)
+                });
+                // console.log('countries:', countries)
 
-            //max laureates - 3
-            var maxLaureates = prizes.filter(i => {
-                if (i.laureates) {
-                    return i.laureates.length == 3
+                // getting all countries with prizes
+                var affiliations = laureates.map(d => {
+                    return d.prizes[0].affiliations
+                });
+                // console.log('affiliations:', affiliations)
+
+
+                unique_countries = countries.filter((v, i, a) => a.indexOf(v) === i);
+                // console.log('unique_countries:', unique_countries)
+
+
+                // cleaning countries names
+                var index = unique_countries.indexOf("Czechoslovakia (now Czech Republic)");
+                if (index !== -1) {
+                    unique_countries[index] = "Czech Republic"
+                    // console.log('unique_countries:', unique_countries)
                 }
-            });
-            // console.log('maxLaureates:', maxLaureates)
 
-            var prizeByYear_cards = d3.select('#prizeByYear');
+                // getting born Countries for all laureates
+                var bornCountries = laureates.map(d => {
+                    return d.bornCountry
+                });
+                // array with unique values: 124 born countries
+                bornCountries = bornCountries.filter((v, i, a) => a.indexOf(v) === i);
+                // console.log('bornCountries:', bornCountries)
 
-            // refreshing prizeByYear_cards
-            prizeByYear_cards.html('');
+                // Counts how many laureates for each born country 
+                let countBornCountryObject = bornCountries.reduce(
+                    (map, value) => { map[value] = (map[value] || 0) + 1; return map },
+                    {}
+                )
+                console.log('countBornCountryObject:', countBornCountryObject)
 
 
-            // Add cards with info for year
-            for (var i = 0; i < chosenYear.length; i++) {
 
 
-                d3.select('#prizeByYear')
-                    .selectAll("div")
-                    .data(chosenYear)
-                    .enter()
-                    .append("div")
-                    .classed("col-lg-3 nobelCards text-center", true)
-                    .html(function (d) {
 
-                        var firstName = '';
-                        var lastName = '';
-                        var firstName1 = '';
-                        var lastName1 = '';
-                        var firstName2 = '';
-                        var lastName2 = '';
+                // Counts how many total prizes each country has 
+                let countObject = countries.reduce(
+                    (map, value) => { map[value] = (map[value] || 0) + 1; return map },
+                    {}
+                )
+                // console.log('countObject:', countObject)
 
-                        var motivation = '';
-                        var share = '';
-                        if (d.laureates) {
-                            share = d.laureates[0].share
 
-                            if (d.laureates[0].firstname) {
-                                firstName = d.laureates[0].firstname
-                            }
 
-                            if (d.laureates[0].surname) {
-                                lastName = d.laureates[0].surname
-                            }
 
-                            if (d.laureates[1]) {
+                // two array for the countries and counts
+                var uniqueCountry = Object.keys(countObject);
+                // console.log('uniqueCountry:', uniqueCountry)
+                var countOfCountry = Object.keys(countObject).map(key => countObject[key]);
+                // console.log('countOfCountry:', countOfCountry)
+                // cleaning countries names
+                var index = uniqueCountry.indexOf("Czechoslovakia (now Czech Republic)");
+                if (index !== -1) {
+                    uniqueCountry[index] = "Czech Republic"
+                    // console.log('uniqueCountry:', uniqueCountry)
+                }
 
-                                if (d.laureates[1].firstname) {
-                                    firstName1 = d.laureates[1].firstname
+
+
+
+
+
+                // array with unique values: 119 years
+                var years = prizes.map(d => d.year);
+                years = years.filter((v, i, a) => a.indexOf(v) === i);
+                // console.log('years:', years);
+
+                // array with unique values: 6 categories
+                var categories = prizes.map(d => d.category);
+                categories = categories.filter((v, i, a) => a.indexOf(v) === i);
+                // console.log('categories:', categories);
+
+                // Add ids to dropdown menu
+                for (var i = 0; i < years.length; i++) {
+                    selectBox = d3.select('#selDataset');
+                    selectBox.append('option').text(years[i]);
+                }
+
+                // filter nobel prizes by year
+                var chosenYear = prizes.filter(i => i.year.toString() === fyear);
+                // console.log('chosenYear:', chosenYear)
+
+                //max laureates - 3
+                var maxLaureates = prizes.filter(i => {
+                    if (i.laureates) {
+                        return i.laureates.length == 3
+                    }
+                });
+                // console.log('maxLaureates:', maxLaureates)
+
+                var prizeByYear_cards = d3.select('#prizeByYear');
+
+                // refreshing prizeByYear_cards
+                prizeByYear_cards.html('');
+
+
+                // Add cards with info for year
+                for (var i = 0; i < chosenYear.length; i++) {
+
+
+                    d3.select('#prizeByYear')
+                        .selectAll("div")
+                        .data(chosenYear)
+                        .enter()
+                        .append("div")
+                        .classed("col-lg-3 nobelCards text-center", true)
+                        .html(function (d) {
+
+                            var firstName = '';
+                            var lastName = '';
+                            var firstName1 = '';
+                            var lastName1 = '';
+                            var firstName2 = '';
+                            var lastName2 = '';
+
+                            var motivation = '';
+                            var share = '';
+                            if (d.laureates) {
+                                share = d.laureates[0].share
+
+                                if (d.laureates[0].firstname) {
+                                    firstName = d.laureates[0].firstname
                                 }
 
-                                if (d.laureates[1].surname) {
-                                    lastName1 = d.laureates[1].surname
-                                }
-                            }
-                            if (d.laureates[2]) {
-                                if (d.laureates[2].firstname) {
-                                    firstName2 = d.laureates[2].firstname
+                                if (d.laureates[0].surname) {
+                                    lastName = d.laureates[0].surname
                                 }
 
-                                if (d.laureates[2].surname) {
-                                    lastName2 = d.laureates[2].surname
+                                if (d.laureates[1]) {
+
+                                    if (d.laureates[1].firstname) {
+                                        firstName1 = d.laureates[1].firstname
+                                    }
+
+                                    if (d.laureates[1].surname) {
+                                        lastName1 = d.laureates[1].surname
+                                    }
                                 }
+                                if (d.laureates[2]) {
+                                    if (d.laureates[2].firstname) {
+                                        firstName2 = d.laureates[2].firstname
+                                    }
+
+                                    if (d.laureates[2].surname) {
+                                        lastName2 = d.laureates[2].surname
+                                    }
+                                }
+
+                                if (d.laureates[0].motivation) {
+                                    motivation = d.laureates[0].motivation
+                                }
+                            } else {
+                                motivation = d.overallMotivation
                             }
 
-                            if (d.laureates[0].motivation) {
-                                motivation = d.laureates[0].motivation
-                            }
-                        } else {
-                            motivation = d.overallMotivation
+                            return `<h3 >${d.year}</h3><hr><h2 class='golden-background'>${d.category.toUpperCase()}</h2><hr><h4>${firstName} ${lastName}</h4><hr><h4>${firstName1} ${lastName1}</h4><hr><h4>${firstName2} ${lastName2}</h4><p>Motivation : ${motivation}</p><p>Share: ${share}</p>`
+
+                        });
+
+                }
+
+
+
+                // console.log('countObject:', countObject)
+                // console.log('uniqueCountry:', uniqueCountry)
+                // console.log('countOfCountry:', countOfCountry)
+
+
+                //     // Creating a bubble chart that displays each country.
+                //     // Using uniqueCountry for the x values.
+                //     // Using countOfCountry for the y values.
+                //     // Using countOfCountry for the marker size.
+                //     // Using uniqueCountry for the marker colors.
+                //     // Using uniqueCountry for the text values.
+                function size(countOfCountry) {
+                    return countOfCountry.map(d => 20 + d / 5)
+                }
+
+                // default values for gauge
+                var gaugeValue = 356;
+                var gaugeCountry = 'USA'
+
+                var trace = {
+                    x: uniqueCountry,
+                    y: countOfCountry,
+                    mode: 'markers',
+                    marker: {
+                        size: size(countOfCountry),
+                        color: countOfCountry
+                    },
+                    text: uniqueCountry
+                };
+
+                //     // set the layout for the bubble plot
+                var layout = {
+                    title: ` Bubble chart for countries with the Nobel prize affiliations`,
+                    // xaxis: { title: 'Countries' },
+                    tickmode: 'linear',
+                    yaxis:
+                        { title: 'Total counts of Nobel prizes per country' },
+                    margin: {
+                        'l': 100,
+                        'r': 0,
+                        't': 100,
+                        'b': 150
+                    }
+                };
+
+
+                //     // creating data variable
+                var data = [trace];
+
+                //     // create the bubble plot
+                Plotly.newPlot('bubble', data, layout);
+
+
+                // Bubble plot on-click 
+                var bubble = document.getElementById('bubble')
+
+                bubble.on('plotly_click', function (data) {
+                    console.log('data:', data)
+                    var x = [];
+                    var y = [];
+
+
+
+                    data.points.forEach(function (pt) {
+
+                        x.push(pt.x);
+                        console.log('pt.x:', pt.x)
+                        console.log('x:', x)
+                        y.push(pt.y);
+                        console.log('y:', y)
+                        gaugeCountry = pt.x
+                        var updateData = {
+                            'value': pt.y
                         }
 
-                        return `<h3 >${d.year}</h3><hr><h2 class='golden-background'>${d.category.toUpperCase()}</h2><hr><h4>${firstName} ${lastName}</h4><hr><h4>${firstName1} ${lastName1}</h4><hr><h4>${firstName2} ${lastName2}</h4><p>Motivation : ${motivation}</p><p>Share: ${share}</p>`
 
+                        Plotly.restyle('gauge', updateData);
+
+
+                        var updateLayout = {
+                            'title': `Total counts of Nobel prizes for <br><br>${gaugeCountry}`
+                        };
+                        Plotly.relayout('gauge', updateLayout)
                     });
+                });
 
-            }
-            //     var year = sample.year;
-            //     // console.log('id:', id);
 
-            //     var washFrequency = data.metadata.filter(i => i.id.toString() === fid)[0]
-            //         .wfreq;
-            //     // console.log('washFrequency:', washFrequency);
 
-            //     // getting sample-metadata
-            //     var metadata = data.metadata.filter(i => i.id.toString() === fid)[0];
-            //     // console.log('metadata:', metadata);
+                //     // the Gauge Chart
+                //     // part of data to input
 
-            //     var metadata_card = d3.select('#sample-metadata');
 
-            //     // refreshing metadata_card
-            //     metadata_card.html('');
+                //  var countForOneCountry = 
+                //  countOfCountry
+                var data = [
+                    {
+                        domain: { x: [0, 1], y: [0, 1] },
+                        value: gaugeValue,
+                        type: 'indicator',
+                        mode: 'gauge+number',
+                        gauge: {
+                            axis: { range: [null, 400] },
+                            bar: { color: '#CA616A' },
+                            steps: [
+                                { range: [0, 50], color: '#fff0f2' },
+                                { range: [50, 100], color: '#fedde0' },
+                                { range: [100, 150], color: '#fecacf' },
+                                { range: [150, 200], color: '#feb7bd' },
+                                { range: [200, 250], color: '#fda3ab' },
+                                { range: [250, 300], color: '#fd909a' },
+                                { range: [300, 350], color: '#fc7d88' },
+                                { range: [350, 400], color: '#fc6a77' },
 
-            //     for (const [key, value] of Object.entries(metadata)) {
-            //         console.log(key, value);
-            //         metadata_card.append('p').text(`${key}: ${value}`);
-            //     }
+                            ]
+                        }
+                    }
+                ];
 
-            //     // top 10 OTUs found in that individual
-            //     // getting sample_values as the values for the bar chart.
-            //     var sample_values = sample.sample_values.slice(0, 10).reverse();
-            //     // console.log('sample_values:', sample_values);
+                var layout = {
+                    title: {
+                        text: `Total counts of Nobel prizes for <br><br>${gaugeCountry}`,
+                        // font: {
+                        //     family: 'Courier New, monospace',
+                        //     size: 24
+                        // },
 
-            //     // getting otu_ids as the labels for the bar chart.
-            //     var otu_ids = sample.otu_ids.slice(0, 10).reverse();
-            //     console.log('otu_ids:', otu_ids);
+                    }
+                };
 
-            //     // getting otu_labels as the hovertext for the chart.
-            //     var otu_labels = otu_ids.map(d => 'OTU ' + d);
-            //     // console.log('otu_labels:', otu_labels);
-
-            //     var trace1 = {
-            //         x: sample_values,
-            //         y: otu_labels,
-            //         text: otu_ids,
-            //         type: 'bar',
-            //         orientation: 'h',
-            //         marker: {
-            //             color: '#83B588'
-            //         }
-            //     };
-
-            //     // data
-            //     var chartData = [trace1];
-
-            //     // Apply the group bar mode to the layout
-            //     var layout = {
-            //         title: `Top 10 OTUs found in Subject ${id}`,
-            //         xaxis: { title: 'Sample Values' },
-            //         yaxis: { title: '' }
-            //     };
-
-            //     // Render the plot to the div tag with id "plot"
-            //     Plotly.newPlot('bar', chartData, layout);
-
-            //     // Create a bubble chart that displays each sample.
-            //     // Use otu_ids for the x values.
-            //     // Use sample_values for the y values.
-            //     // Use sample_values for the marker size.
-            //     // Use otu_ids for the marker colors.
-            //     // Use otu_labels for the text values.
-
-            //     var traceB = {
-            //         x: otu_ids,
-            //         y: sample_values,
-            //         mode: 'markers',
-            //         marker: {
-            //             size: sample_values,
-            //             color: otu_ids
-            //         },
-            //         text: otu_labels
-            //     };
-
-            //     // set the layout for the bubble plot
-            //     var layoutB = {
-            //         title: ` Bubble chart for each sample`,
-            //         xaxis: { title: `OTU ID ${fid}` },
-            //         tickmode: 'linear',
-
-            //         yaxis: { title: 'Sample Values' }
-            //     };
-
-            //     // creating data variable
-            //     var dataB = [traceB];
-
-            //     // create the bubble plot
-            //     Plotly.newPlot('bubble', dataB, layoutB);
-
-            //     // the Gauge Chart
-            //     // part of data to input
-            //     var data = [
-            //         {
-            //             domain: { x: [0, 1], y: [0, 1] },
-            //             value: washFrequency,
-            //             type: 'indicator',
-            //             mode: 'gauge+number',
-            //             gauge: {
-            //                 axis: { range: [null, 9] },
-            //                 bar: { color: '#83A388' },
-            //                 steps: [
-            //                     { range: [0, 1], color: '#F8F3EB' },
-            //                     { range: [1, 2], color: '#F4F1E4' },
-            //                     { range: [2, 3], color: '#E9E7C8' },
-            //                     { range: [3, 4], color: '#D5E599' },
-            //                     { range: [4, 5], color: '#B6CD8F' },
-            //                     { range: [5, 6], color: '#8AC085' },
-            //                     { range: [6, 7], color: '#88BB8D' },
-            //                     { range: [7, 8], color: '#83B588' },
-            //                     { range: [8, 9], color: '#83A388' }
-            //                 ]
-            //             }
-            //         }
-            //     ];
-
-            //     var layout = {
-            //         title: {
-            //             text: `Belly Button Washing Frequency <br> Scrubs per Week`
-            //         }
-            //     };
-
-            //     Plotly.newPlot('gauge', data, layout);
+                Plotly.newPlot('gauge', data, layout);
+            });
         });
     })
 }
