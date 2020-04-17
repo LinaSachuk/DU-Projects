@@ -192,6 +192,10 @@ function myPlot(fyear = '2003') {
                     (map, value) => { map[value] = (map[value] || 0) + 1; return map },
                     {}
                 )
+
+                delete countObject["Germany (now France)"]
+                delete countObject["USSR (now Russia)"]
+
                 // console.log('countObject:', countObject)
 
 
@@ -206,7 +210,12 @@ function myPlot(fyear = '2003') {
                 var index = uniqueCountry.indexOf("Czechoslovakia (now Czech Republic)");
                 if (index !== -1) {
                     uniqueCountry[index] = "Czech Republic"
-                    // console.log('uniqueCountry:', uniqueCountry)
+                    console.log('uniqueCountry:', uniqueCountry)
+                }
+                var index2 = uniqueCountry.indexOf("the Netherlands");
+                if (index2 !== -1) {
+                    uniqueCountry[index2] = "Netherlands"
+                    console.log('uniqueCountry:', uniqueCountry)
                 }
 
 
@@ -347,16 +356,21 @@ function myPlot(fyear = '2003') {
 
                 //     // set the layout for the bubble plot
                 var layout = {
-                    title: ` Bubble chart for countries with the Nobel prize affiliations`,
+                    title: ` Countries with the Nobel Prize affiliations`,
+                    font: {
+                        family: 'Courier New, monospace',
+                        size: 16,
+                        color: "#df8a81"
+                    },
                     // xaxis: { title: 'Countries' },
                     tickmode: 'linear',
                     yaxis:
-                        { title: 'Total counts of Nobel prizes per country' },
+                        { title: 'Counts of Nobel Prizes' },
                     margin: {
                         'l': 100,
                         'r': 0,
                         't': 100,
-                        'b': 150
+                        'b': 200
                     }
                 };
 
@@ -372,31 +386,26 @@ function myPlot(fyear = '2003') {
                 var bubble = document.getElementById('bubble')
 
                 bubble.on('plotly_click', function (data) {
-                    console.log('data:', data)
-                    var x = [];
-                    var y = [];
-
-
-
                     data.points.forEach(function (pt) {
 
-                        x.push(pt.x);
-                        console.log('pt.x:', pt.x)
-                        console.log('x:', x)
-                        y.push(pt.y);
-                        console.log('y:', y)
+                        // console.log('pt.x:', pt.x)
+                        // console.log('pt.y:', pt.y)
+
                         gaugeCountry = pt.x
+
                         var updateData = {
                             'value': pt.y
                         }
 
-
+                        //updating gauge value
                         Plotly.restyle('gauge', updateData);
 
 
                         var updateLayout = {
-                            'title': `Total counts of Nobel prizes for <br><br>${gaugeCountry}`
+                            'title': `Total counts of Nobel Prizes for <br><br>${gaugeCountry}`
                         };
+
+                        // updating gauge title
                         Plotly.relayout('gauge', updateLayout)
                     });
                 });
@@ -417,16 +426,16 @@ function myPlot(fyear = '2003') {
                         mode: 'gauge+number',
                         gauge: {
                             axis: { range: [null, 400] },
-                            bar: { color: '#CA616A' },
+                            bar: { color: '#df8a81' },
                             steps: [
-                                { range: [0, 50], color: '#fff0f2' },
-                                { range: [50, 100], color: '#fedde0' },
-                                { range: [100, 150], color: '#fecacf' },
-                                { range: [150, 200], color: '#feb7bd' },
-                                { range: [200, 250], color: '#fda3ab' },
-                                { range: [250, 300], color: '#fd909a' },
-                                { range: [300, 350], color: '#fc7d88' },
-                                { range: [350, 400], color: '#fc6a77' },
+                                { range: [0, 50], color: '#fff6f0' },
+                                { range: [50, 100], color: '#feebdd' },
+                                { range: [100, 150], color: '#fedfca' },
+                                { range: [150, 200], color: '#fed4b7' },
+                                { range: [200, 250], color: '#fdc9a3' },
+                                { range: [250, 300], color: '#fdbd90' },
+                                { range: [300, 350], color: '#fcb27d' },
+                                { range: [350, 400], color: '#fca66a' },
 
                             ]
                         }
@@ -435,11 +444,12 @@ function myPlot(fyear = '2003') {
 
                 var layout = {
                     title: {
-                        text: `Total counts of Nobel prizes for <br><br>${gaugeCountry}`,
-                        // font: {
-                        //     family: 'Courier New, monospace',
-                        //     size: 24
-                        // },
+                        text: `Total counts of Nobel Prizes for <br><br>${gaugeCountry}`,
+                        font: {
+                            family: 'Courier New, monospace',
+                            size: 22,
+                            color: "#df8a81"
+                        },
 
                     }
                 };
