@@ -25,10 +25,16 @@ body {
   background-color: rgb(255, 255, 255, 0.95);
 
   /* background-color: rgb(255, 255, 255, 0.95); */
-  opacity: 0.85;
+  opacity: 0.9;
 }
+
 img {
   width: 100%;
+}
+
+.alfred {
+  width: 10%;
+  opacity: 0.5;
 }
 
 .golden {
@@ -48,7 +54,7 @@ h2 {
 
 #map {
   height: 600px;
-  width: 1000px;
+  width: 100%;
 }
 .title {
   padding: 3%;

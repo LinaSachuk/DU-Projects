@@ -17,8 +17,10 @@
     integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
     crossorigin=""></script>
 
-    <!-- Leaflet-Choropleth JavaScript
-    <!-- <script type="text/javascript" src="static/js/choropleth.js"></script> --> -->
+    <!-- Load Esri Leaflet from CDN -->
+    <script src="https://unpkg.com/esri-leaflet@2.3.3/dist/esri-leaflet.js"
+    integrity="sha512-cMQ5e58BDuu1pr9BQ/eGRn6HaR6Olh0ofcHFWe5XesdCITVuSBiBZZbhCijBe5ya238f/zMMRYIMIIg1jxv4sQ=="
+    crossorigin=""></script>
 
     <!-- d3 JavaScript -->
     <script src="https://d3js.org/d3.v4.min.js"></script>
@@ -32,7 +34,6 @@
 
   
   <body>
-
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#">Navbar</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,20 +50,37 @@
   </div>
 </nav>
 
-
+<!-- <div id="esriMap"></div> -->
+<div id="basemaps-wrapper" class="leaflet-bar">
+  <select id="basemaps">
+    <option value="Topographic">Topographic</option>
+    <option value="Streets">Streets</option>
+    <option value="NationalGeographic">National Geographic</option>
+    <option value="Oceans">Oceans</option>
+    <option value="Gray">Gray</option>
+    <option value="DarkGray">Dark Gray</option>
+    <option value="Imagery">Imagery</option>
+    <option value="ImageryClarity">Imagery (Clarity)</option>
+    <option value="ImageryFirefly">Imagery (Firefly)</option>
+    <option value="ShadedRelief">Shaded Relief</option>
+    <option value="Physical">Physical</option>
+  </select>
+</div>
 
 <div class="jumbotron container">
+  <!-- Hero img -->
  <img src='https://media-exp1.licdn.com/dms/image/C4E1BAQEjuczV2AIBeg/company-background_10000/0?e=2159024400&v=beta&t=QdPep27nqzTwonaSFjT5o8XkPz6KTHY6jft5GCk3HQw'>
 
+ <!-- Anime + Title-->
     <div class="row title animeCircle">
       <div class="col-lg-12 col-md-12 col-sm-12 ">
-        <h1 class="display-4 text-center factst"></h1>
-      </div>
+          <h1 class="display-4 text-center factst"></h1>
+        </div>
     </div>
 
-
+<!-- facts paragraph and table  -->
     <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 factsp "></div>
+        <div class="col-lg-12 col-md-12 col-sm-12 factsp"></div>
         <div class="col-lg-12  col-md-12 col-sm-12 ">
                 <h3 class=" text-center golden"><span class ="round-log"></span> Nobel Prizes</h3>
         </div>
@@ -71,23 +89,32 @@
   </div>
 
 
+<!-- Interactive charts -->
+  <div class="jumbotron container">
+    <div class="col-sm-12 col-md-12 col-lg-12 p-5">
+      <div class="well text-center year-selector">
+      </div>
+    </div>
+
     <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-7 m-3">
+        <!-- bubble plot -->
+        <div class="col-sm-12 col-md-12 col-lg-8">
           <div id="bubble"></div>
         </div>
         
-
+        <!-- gauge plot -->
         <div class="col-sm-12 col-md-5 col-lg-4">
           <div id="gauge"></div>
         </div>
+
         <!-- map div -->
         <div class="col-sm-12 col-md-12 col-lg-12">
-          <div id="map" class="m-5"></div>
+          <div id="map"></div>
        </div>
     </div>
-    
 
   </div>
+
  </div>
 
 
@@ -102,7 +129,7 @@
            <select id="selDataset"  class="dropdown-content" onchange="optionChanged(this.value)"></select>
          </div>
        </div>
- 
+ <!-- generating cards by year -->
        <div id="prizeByYear" class="row">
        </div>
        </div>
@@ -125,8 +152,8 @@
     <script type="text/javascript" src="static/js/config.js"></script>
       <!-- JS  -->
     <script type="text/javascript" src="static/js/logic.js"></script>
-    <script type="text/javascript" src="static/js/logic2.js"></script> 
-    <!-- <script type="text/javascript" src="static/js/logic3.js"></script> -->
+    <!-- <script type="text/javascript" src="static/js/logic2.js"></script>  -->
+    <!-- <script type="text/javascript" src="static/js/esriMap.js"></script> -->
     <!-- <script type="text/javascript" src="static/js/logic4.js"></script> -->
 
   </body>
