@@ -17,6 +17,24 @@ body {
   background-size: cover;
 }
 
+.navbar {
+  background-color: rgba(230, 216, 136, 0.01) !important;
+}
+.fa:hover {
+  color: red;
+  opacity: 0.5;
+}
+.swal-text {
+  background-color: #fefae3;
+  padding: 17px;
+  border: 1px solid #f0e1a1;
+  display: block;
+  margin: 22px;
+  font-size: 20px;
+  text-align: center;
+  color: #61534e;
+}
+
 .jumbotron {
   background-color: rgb(255, 255, 255, 0.2);
 }
@@ -76,9 +94,12 @@ h2 {
   margin: auto;
   padding: 4%;
 }
+.factstable {
+  background-color: rgb(250, 203, 126, 0.5);
+  font-size: larger;
+}
 
 .year-selector {
-  /* background-color: rgb(225, 189, 111, 0.5); */
   background-image: url('https://i.pinimg.com/736x/46/2d/ac/462dacc62461b7803b36d40fc39337f6.jpg');
   padding: 1%;
 }
@@ -87,6 +108,10 @@ select {
   width: 200px;
   font-size: 20px;
   text-align: center;
+}
+
+#byYear {
+  /* margin-top: -2%; */
 }
 
 #prizeByYear {

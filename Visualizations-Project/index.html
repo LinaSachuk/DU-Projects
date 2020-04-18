@@ -24,7 +24,13 @@
 
     <!-- d3 JavaScript -->
     <script src="https://d3js.org/d3.v4.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
     <!-- Our CSS -->
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
 
@@ -34,24 +40,23 @@
 
   
   <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Navbar</a>
+  <nav class="navbar fixed-top navbar-light bg-light" >
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 
     <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" href="#">Features</a>
-      <a class="nav-item nav-link" href="#">Pricing</a>
-      <a class="nav-item nav-link disabled" href="#">Disabled</a>
+      <a class="nav-item nav-link active" href="#home">Home <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" href="#byYear">By Year</a>
+      <a class="nav-item nav-link" href="#byCountry">By Country</a>
+      <a class="nav-item nav-link" href="#contact">Contact</a>
     </div>
   </div>
 </nav>
 
 
-<div class="jumbotron container">
+<div id ="home" class="jumbotron container">
   <!-- Hero img -->
  <img src='https://media-exp1.licdn.com/dms/image/C4E1BAQEjuczV2AIBeg/company-background_10000/0?e=2159024400&v=beta&t=QdPep27nqzTwonaSFjT5o8XkPz6KTHY6jft5GCk3HQw'>
 
@@ -63,7 +68,7 @@
     </div>
 
 <!-- facts paragraph and table  -->
-    <div class="row">
+    <div   class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 factsp"></div>
         <div class="col-lg-12  col-md-12 col-sm-12 ">
                 <h3 class=" text-center golden"><span class ="round-log"></span> Nobel Prizes</h3>
@@ -75,8 +80,7 @@
 
 
 <!-- year selector--> 
-<div class="jumbotron container">
-  <div class="container">
+<div id="byYear" class="jumbotron container">
      <div class="row">
        <div class="col-sm-12 col-md-12 col-lg-12 p-5">
          <div class="well text-center year-selector">
@@ -90,7 +94,6 @@
        <div id="prizeByYear" class="row">
        </div>
        </div>
-  </div>
  </div>
 
 
@@ -100,7 +103,7 @@
 
 
 <!-- Interactive charts -->
-  <div class="jumbotron container">
+  <div id="byCountry" class="jumbotron container">
 
     <div class="row">
         <!-- bubble plot -->
@@ -109,12 +112,12 @@
         </div>
         
         <!-- gauge plot -->
-        <div class="col-sm-12 col-md-5 col-lg-6">
+        <div class="col-sm-12 col-md-5 col-lg-5">
           <div id="gauge"></div>
         </div>
 
         <!-- map div -->
-        <div class="col-sm-12 col-md-12 col-lg-6">
+        <div class="col-sm-12 col-md-12 col-lg-7">
           <p class="mapTitle"></p>
           <div id="map"></div>
        </div>
@@ -125,16 +128,38 @@
  </div>
 
 
+<!-- Contact Section -->
+<!-- Footer -->
+<!-- Footer -->
+<footer class="page-footer font-small text-center special-color-dark pt-4">
+
+  <!-- Footer Elements -->
+  <div id="contact" class="container">
+    <p>Lets get in touch. Send me a message:</p>
+    <a href='mailto:sachuklina@gmail.com'><i class="fa fa-envelope fa-4x "></i></a>
+    <a href='https://github.com/LinaSachuk'><i class="fa fa-github fa-4x "></i></a>
+    <a href='https://www.linkedin.com/in/lina-sachuk-346938103/'><i class="fa fa-linkedin fa-4x"></i></i></a>
+  
+  </div>
+</footer>
+ 
 
 
 
 
+
+
+
+
+ 
+
+<!-- Sweet Alert script -->
+ <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
  <!-- bootstrap scripts -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    
+ <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+ <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
 <!-- countries names and lat, long -->
    <!-- <script src="https://gist.github.com/erdem/8c7d26765831d0f9a8c62f02782ae00d.js"></script>-->

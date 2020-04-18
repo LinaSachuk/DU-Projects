@@ -368,7 +368,16 @@ function myPlot(fyear = '2003') {
 
 
                             d3.selectAll(".nobelCards").on("dblclick", function (d) {
-                                info(`Great! You like ${d.category}!  Maybe you will be the next year Nobel laureate!`)
+
+                                var categoryUpperCase = d.category.toUpperCase();
+
+                                swal({
+                                    title: "Good job!",
+                                    text: `You like ${categoryUpperCase}!  Maybe you will be the next year Nobel laureate!`,
+                                    icon: "success",
+                                    button: "Aww yiss!",
+
+                                })
                             });
                             // // Get x & y co-ordinates
                             // console.log(d3.mouse(this));
@@ -387,7 +396,7 @@ function myPlot(fyear = '2003') {
                     //     // Using uniqueCountry for the marker colors.
                     //     // Using uniqueCountry for the text values.
                     function size(countOfCountry) {
-                        return countOfCountry.map(d => 20 + d / 5)
+                        return countOfCountry.map(d => 15 + d / 2.5)
                     }
 
                     // default values for gauge
@@ -400,7 +409,8 @@ function myPlot(fyear = '2003') {
                         mode: 'markers',
                         marker: {
                             size: size(countOfCountry),
-                            color: countOfCountry
+                            color: [100, 10, 36, 191, 356, 17, 8, 1, 6, 6, 18, 1, 24, 8, 1, 1, 5, 2, 5, 3, 1, 1, 1, 1, 4, 5, 1],
+                            colorscale: 'Rainbow'
                         },
                         text: uniqueCountry
                     };
@@ -450,14 +460,14 @@ function myPlot(fyear = '2003') {
                             mode: 'gauge+number',
                             gauge: {
                                 axis: { range: [null, 600] },
-                                bar: { color: '#df8a81' },
+                                bar: { color: '#ac434e' },
                                 steps: [
-                                    { range: [0, 100], color: '#fff6f0' },
-                                    { range: [100, 200], color: '#feebdd' },
-                                    { range: [200, 300], color: '#fedfca' },
-                                    { range: [300, 400], color: '#fed4b7' },
-                                    { range: [400, 500], color: '#fdc9a3' },
-                                    { range: [500, 600], color: '#fdbd90' },
+                                    { range: [0, 100], color: '#F3E4E5' },
+                                    { range: [100, 200], color: '#E7C9CC' },
+                                    { range: [200, 300], color: '#DBAEB3' },
+                                    { range: [300, 400], color: '#CF9399' },
+                                    { range: [400, 500], color: '#C37880' },
+                                    { range: [500, 600], color: '#C36872' },
 
                                 ]
                             }
