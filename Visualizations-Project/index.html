@@ -50,22 +50,6 @@
   </div>
 </nav>
 
-<!-- <div id="esriMap"></div> -->
-<div id="basemaps-wrapper" class="leaflet-bar">
-  <select id="basemaps">
-    <option value="Topographic">Topographic</option>
-    <option value="Streets">Streets</option>
-    <option value="NationalGeographic">National Geographic</option>
-    <option value="Oceans">Oceans</option>
-    <option value="Gray">Gray</option>
-    <option value="DarkGray">Dark Gray</option>
-    <option value="Imagery">Imagery</option>
-    <option value="ImageryClarity">Imagery (Clarity)</option>
-    <option value="ImageryFirefly">Imagery (Firefly)</option>
-    <option value="ShadedRelief">Shaded Relief</option>
-    <option value="Physical">Physical</option>
-  </select>
-</div>
 
 <div class="jumbotron container">
   <!-- Hero img -->
@@ -89,35 +73,6 @@
   </div>
 
 
-<!-- Interactive charts -->
-  <div class="jumbotron container">
-    <div class="col-sm-12 col-md-12 col-lg-12 p-5">
-      <div class="well text-center year-selector">
-      </div>
-    </div>
-
-    <div class="row">
-        <!-- bubble plot -->
-        <div class="col-sm-12 col-md-12 col-lg-8">
-          <div id="bubble"></div>
-        </div>
-        
-        <!-- gauge plot -->
-        <div class="col-sm-12 col-md-5 col-lg-4">
-          <div id="gauge"></div>
-        </div>
-
-        <!-- map div -->
-        <div class="col-sm-12 col-md-12 col-lg-12">
-          <div id="map"></div>
-       </div>
-    </div>
-
-  </div>
-
- </div>
-
-
 
 <!-- year selector--> 
 <div class="jumbotron container">
@@ -129,12 +84,47 @@
            <select id="selDataset"  class="dropdown-content" onchange="optionChanged(this.value)"></select>
          </div>
        </div>
- <!-- generating cards by year -->
+
+        <!-- generating cards by year -->
+        
        <div id="prizeByYear" class="row">
        </div>
        </div>
   </div>
  </div>
+
+
+
+
+
+
+
+<!-- Interactive charts -->
+  <div class="jumbotron container">
+
+    <div class="row">
+        <!-- bubble plot -->
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <div id="bubble"></div>
+        </div>
+        
+        <!-- gauge plot -->
+        <div class="col-sm-12 col-md-5 col-lg-6">
+          <div id="gauge"></div>
+        </div>
+
+        <!-- map div -->
+        <div class="col-sm-12 col-md-12 col-lg-6">
+          <p class="mapTitle"></p>
+          <div id="map"></div>
+       </div>
+    </div>
+
+  </div>
+
+ </div>
+
+
 
 
 

@@ -1,10 +1,4 @@
 
-// d3.json('/data').then(function (data) {
-//     console.log(data);
-// })
-
-
-
 
 // adding header with Nobel Prize Facts table - scraped data from Nobel.org web site
 d3.json('../static/data/facts.json', function (response) {
@@ -65,12 +59,8 @@ for (let i = 0; i < numberOfEls; i++) createEl(i);
 
 
 
-
-
-
 // adding round-log
 var roundLogEl = document.querySelector('.round-log');
-
 anime({
     targets: roundLogEl,
     innerHTML: [0, 597],
@@ -79,18 +69,20 @@ anime({
     round: 10 // Will round the animated value to 1 decimal
 });
 
-
+// getting a selected year value
 function optionChanged() {
-    // Prevent the page from refreshing
-
-    // Select the input value from the form
+    // Select the input value from the selection
     var filter_year = d3.select('#selDataset').property('value');
     //   console.log('filter_id:', filter_id);
-
-    // clear the input value
     myPlot(filter_year);
-    // Build the plot with the new stock
 }
+
+
+
+// // set globally map variable
+// var map = null;
+
+
 
 // Use d3.json() to fetch data from JSON file
 // Incoming data is internally referred to as data
@@ -117,6 +109,18 @@ function myPlot(fyear = '2003') {
                     console.log('country latlng:', coordinates[0].latlng)
 
 
+                    // deleting an old map
+                    var container = L.DomUtil.get('map');
+                    if (container != null) {
+                        container._leaflet_id = null;
+                    }
+
+                    // initializing a new map
+                    var map = L.map('map', { scrollWheelZoom: false }).setView([46, 2], 1);
+
+
+                    // // // Creating map object
+                    // var map = L.map('map', { scrollWheelZoom: false }).setView([46, 2], 1);
 
 
 
@@ -302,6 +306,74 @@ function myPlot(fyear = '2003') {
                     }
 
 
+                    // // adding animation for the cards
+                    // event handling
+                    d3.selectAll(".nobelCards")
+                        .on("click", function (d, i) {
+
+                            console.log('i:', i)
+                            console.log('d:', d)
+                            console.log(laureates)
+                            var idsForCards = []
+                            var laureatesForCard = []
+                            var color = '#e3c591'
+                            if (d.laureates) {
+                                d.laureates.forEach(element => idsForCards.push(element.id))
+
+                                console.log('idsForCards:', idsForCards)
+
+                                for (let j = 0; j < idsForCards.length; j++) {
+                                    for (let i = 0; i < laureates.length; i++) {
+                                        if (laureates[i].id == idsForCards[j]) {
+                                            laureatesForCard.push(laureates[i].gender);
+                                        }
+                                    }
+                                }
+                                console.log('laureatesForCard:', laureatesForCard)
+
+                                var female = laureatesForCard.filter(d => d == 'female')
+                                var male = laureatesForCard.filter(d => d == 'male')
+                                if (female.length > 0) {
+                                    color = '#FFDCE5'
+                                }
+                                if (male.length > 0) {
+                                    color = '#DCE5FF'
+                                }
+
+                            }
+
+
+                            d3.select(this)
+
+
+                            var test = anime({
+                                targets: this,
+                                backgroundColor: color,
+                                rotateY: [{ value: "360deg", duration: 1000 }],
+                                // translateY: '10vh',
+                                duration: 1000,
+                                loop: false,
+                                direction: 'alternate',
+                                easing: 'easeInCubic',
+                                //new code
+                                scaleX: {
+                                    value: 1.05,
+                                    duration: 150,
+                                    delay: 268
+                                }
+                            });
+                            // // Get current event info
+                            // console.log('d3.event:', d3.event)
+
+
+
+                            d3.selectAll(".nobelCards").on("dblclick", function (d) {
+                                info(`Great! You like ${d.category}!  Maybe you will be the next year Nobel laureate!`)
+                            });
+                            // // Get x & y co-ordinates
+                            // console.log(d3.mouse(this));
+                        })
+
 
                     // console.log('countObject:', countObject)
                     // console.log('uniqueCountry:', uniqueCountry)
@@ -339,7 +411,7 @@ function myPlot(fyear = '2003') {
                         font: {
                             family: 'Courier New, monospace',
                             size: 15.8,
-                            color: "#CF6873"
+                            color: "#ac434e"
                         },
                         // xaxis: { title: 'Countries' },
                         tickmode: 'linear',
@@ -348,8 +420,8 @@ function myPlot(fyear = '2003') {
                         margin: {
                             'l': 100,
                             'r': 0,
-                            't': 100,
-                            'b': 200
+                            't': 50,
+                            'b': 150
                         }
                     };
 
@@ -398,7 +470,7 @@ function myPlot(fyear = '2003') {
                             font: {
                                 family: 'Courier New, monospace',
                                 size: 21,
-                                color: "#CF6873"
+                                color: "#ac434e"
                             },
 
                         }
@@ -420,15 +492,10 @@ function myPlot(fyear = '2003') {
                     // map creation
 
 
-
-
-                    // Creating map object
-                    var map = L.map('map', { scrollWheelZoom: false }).setView([43.64701, -79.39425], 2);
-
                     //creating a medal icon
                     var medalIcon = L.icon({
                         iconUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/e/ed/Nobel_Prize.png/440px-Nobel_Prize.png',
-                        iconSize: [50, 50], // size of the icon
+                        iconSize: [35, 35], // size of the icon
                     });
 
                     // var marker = L.marker([49, 32], { icon: medalIcon }).addTo(map);
@@ -456,34 +523,16 @@ function myPlot(fyear = '2003') {
                         }
                     }
 
-                    var geojsonMarkerOptions = {
-                        radius: 30,
-                        fillColor: "#ff7800",
-                        color: "#000",
-                        weight: 1,
-                        opacity: 1,
-                        fillOpacity: 0.8
-                    };
 
-                    function pointToLayer(feature, latlng) {
-                        console.log(feature, latlng)
-                        return new L.CircleMarker(latlng, {
-                            radius: 10,
-                            fillOpacity: 0.85
-                        });
-                    }
-                    function pointToLayer(feature, latlng) {
-                        return L.circleMarker(latlng, geojsonMarkerOptions);
-                    }
 
                     // getting countries shapes
                     var link = 'static/data/nobelCountries.geojson';
 
                     // Our style object
                     var mapStyle = {
-                        color: '#df8a81',
-                        fillColor: 'pink',
-                        fillOpacity: 0.3,
+                        color: '#ac434e',
+                        fillColor: '#cf6873',
+                        fillOpacity: 0.4,
                         weight: 1.5,
                     };
                     // Grabbing our GeoJSON data..
@@ -501,39 +550,14 @@ function myPlot(fyear = '2003') {
                     });
                     marker = L.marker([43.64701, -79.39425], { icon: medalIcon });
 
-                    // // Grabbing our filtered GeoJSON data..
-                    // d3.json(link, function (data) {
-                    //     console.log(data)
-                    //     filterData = data.features.filter(d => d.properties.ADMIN == 'Ukraine')
-
-                    //     // Creating a geoJSON layer with the retrieved data
-                    //     var geojsonLayer = L.geoJson(filterData, {
-
-                    //         // Passing in our style object
-                    //         style: mapStyle,
-                    //         // pointToLayer: pointToLayer,
-                    //         onEachFeature: onEachFeature
-                    //     }).addTo(map);
-
-                    //     var chosenCoordinates = coordinates.filter(d => d.name == 'Ukraine')
-                    //     console.log('chosenCoordinates:', chosenCoordinates)
-                    //     var chosenLatLng = chosenCoordinates[0].latlng
-                    //     console.log('chosenLatLng:', chosenLatLng)
-
-                    //     var marker = L.marker(chosenLatLng, { icon: medalIcon }).addTo(map);
-                    //     map.flyTo(chosenLatLng, 4)
-                    //     // map.removeLayer(geojsonLayer)
-                    //     // map.addLayer(geojsonLayer);
-                    // });
 
 
 
 
-
-
-
-
-
+                    // Bubble plot on-click 
+                    // Bubble plot on-click 
+                    // Bubble plot on-click 
+                    // Bubble plot on-click 
                     // Bubble plot on-click 
                     var bubble = document.getElementById('bubble')
 
@@ -563,34 +587,44 @@ function myPlot(fyear = '2003') {
 
 
                             // changing the map om the fly
-
+                            // Our style object
+                            var mapNewStyle = {
+                                color: '#ac434e',
+                                fillColor: 'purple',
+                                fillOpacity: 0.5,
+                                weight: 1.5,
+                            };
                             // // Grabbing our GeoJSON data and filtering on the fly
                             d3.json(link, function (data) {
                                 console.log(data)
                                 filterData = data.features.filter(d => d.properties.ADMIN == gaugeCountry)
                                 console.log('filterData:', filterData)
 
+                                // removing a layer and a marker from the map
                                 map.removeLayer(geojsonLayer)
                                 map.removeLayer(marker);
+
+                                // adding a new layer
                                 //     // Creating a geoJSON layer with the retrieved data
                                 geojsonLayer = L.geoJson(filterData, {
-
                                     //         // Passing in our style object
-                                    style: mapStyle,
+                                    style: mapNewStyle,
                                     //         // pointToLayer: pointToLayer,
                                     onEachFeature: onEachFeature
                                 });
                                 geojsonLayer.addTo(map);
+
 
                                 var chosenCoordinates = coordinates.filter(d => d.name == gaugeCountry)
                                 console.log('chosenCoordinates:', chosenCoordinates)
                                 var chosenLatLng = chosenCoordinates[0].latlng
                                 //     console.log('chosenLatLng:', chosenLatLng)
 
+                                // adding a new marker
                                 marker = L.marker(chosenLatLng, { icon: medalIcon }).addTo(map);
-                                map.flyTo(chosenLatLng, 5)
-                                //     // map.removeLayer(geojsonLayer)
-                                //     // map.addLayer(geojsonLayer);
+                                map.flyTo(chosenLatLng, 4)
+
+
                             });
 
 

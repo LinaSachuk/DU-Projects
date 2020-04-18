@@ -30,6 +30,7 @@ body {
 
 img {
   width: 100%;
+  /* color: #ac434e */
 }
 
 .alfred {
@@ -53,7 +54,7 @@ h2 {
 }
 
 #map {
-  height: 600px;
+  height: 350px;
   width: 100%;
 }
 .title {
@@ -95,7 +96,7 @@ select {
 .nobelCards {
   border-style: dotted;
   border-color: #e3c591;
-  margin: 3%;
+  margin: 4%;
   padding-top: 3%;
 }
 
