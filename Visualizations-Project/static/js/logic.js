@@ -396,7 +396,7 @@ function myPlot(fyear = '2003') {
                     //     // Using uniqueCountry for the marker colors.
                     //     // Using uniqueCountry for the text values.
                     function size(countOfCountry) {
-                        return countOfCountry.map(d => 15 + d / 2.5)
+                        return countOfCountry.map(d => 25 + d / 2.5)
                     }
 
                     // default values for gauge
@@ -460,14 +460,14 @@ function myPlot(fyear = '2003') {
                             mode: 'gauge+number',
                             gauge: {
                                 axis: { range: [null, 600] },
-                                bar: { color: '#ac434e' },
+                                bar: { color: '#FF575A' },
                                 steps: [
-                                    { range: [0, 100], color: '#F3E4E5' },
-                                    { range: [100, 200], color: '#E7C9CC' },
-                                    { range: [200, 300], color: '#DBAEB3' },
-                                    { range: [300, 400], color: '#CF9399' },
-                                    { range: [400, 500], color: '#C37880' },
-                                    { range: [500, 600], color: '#C36872' },
+                                    { range: [0, 100], color: '#FFF2F2' },
+                                    { range: [100, 200], color: '#FFE5E5' },
+                                    { range: [200, 300], color: '#FFCBCC' },
+                                    { range: [300, 400], color: '#FFB1B2' },
+                                    { range: [400, 500], color: '#FF9799' },
+                                    { range: [500, 600], color: '#FF8A8C' },
 
                                 ]
                             }
@@ -659,3 +659,184 @@ function myPlot(fyear = '2003') {
 }
 
 myPlot()
+
+
+
+// Radar Chart
+am4core.ready(function () {
+
+    // Themes begin
+    am4core.useTheme(am4themes_animated);
+    // Themes end
+
+
+    var chart = am4core.create("chartdiv", am4charts.RadarChart);
+    // chart.dataSource.url = "chart_data.json";
+    chart.data = [{
+        "country": "USA",
+        "awards": 356
+    }, {
+        "country": "China",
+        "awards": 1
+    }, {
+        "country": "Japan",
+        "awards": 18
+    }, {
+        "country": "Germany",
+        "awards": 66
+    }, {
+        "country": "UK",
+        "awards": 91
+    }, {
+        "country": "France",
+        "awards": 36
+    }, {
+        "country": "India",
+        "awards": 1
+    }, {
+        "country": "Spain",
+        "awards": 1
+    }, {
+        "country": "Netherlands",
+        "awards": 10
+    }, {
+        "country": "Russia",
+        "awards": 3
+    }, {
+        "country": "Sweden",
+        "awards": 17
+    },
+    {
+        "country": "Canada",
+        "awards": 8
+    },
+    {
+        "country": "Denmark",
+        "awards": 8
+    },
+    {
+        "country": "Austria",
+        "awards": 6
+    },
+    {
+        "country": "Italy",
+        "awards": 6
+    },
+    {
+        "country": "Ireland",
+        "awards": 1
+    },
+    {
+        "country": "Switzerland",
+        "awards": 24
+    },
+    {
+        "country": "Finland",
+        "awards": 1
+    },
+    {
+        "country": "Czech Republic",
+        "awards": 1
+    },
+    {
+        "country": "Norway",
+        "awards": 5
+    },
+    {
+        "country": "Argentina",
+        "awards": 2
+    },
+    {
+        "country": "Belgium",
+        "awards": 5
+    },
+    {
+        "country": "Tunisia",
+        "awards": 5
+    },
+    {
+        "country": "Hungary",
+        "awards": 1
+    },
+    {
+        "country": "Portugal",
+        "awards": 1
+    },
+    {
+        "country": "Australia",
+        "awards": 4
+    },
+    {
+        "country": "Israel",
+        "awards": 4
+    },
+    ];
+
+    chart.innerRadius = am4core.percent(40)
+
+    var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+    categoryAxis.renderer.grid.template.location = 0;
+    categoryAxis.dataFields.category = "country";
+    categoryAxis.renderer.minGridDistance = 60;
+    categoryAxis.renderer.inversed = true;
+    categoryAxis.renderer.labels.template.location = 0.5;
+    categoryAxis.renderer.grid.template.strokeOpacity = 0.08;
+
+    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis.min = 0;
+    valueAxis.extraMax = 0.4;
+    valueAxis.renderer.grid.template.strokeOpacity = 0.08;
+
+    chart.seriesContainer.zIndex = -10;
+
+
+    var series = chart.series.push(new am4charts.RadarColumnSeries());
+    series.name = ["country"];
+    series.dataFields.categoryX = "country";
+    series.dataFields.valueY = "awards";
+    series.tooltipText = "{valueY.value}"
+    series.columns.template.strokeOpacity = 0;
+    series.columns.template.radarColumn.cornerRadius = 4;
+    series.columns.template.radarColumn.innerCornerRadius = 0;
+
+    chart.zoomOutButton.disabled = true;
+
+    // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
+    series.columns.template.adapter.add("fill", (fill, target) => {
+        return chart.colors.getIndex(target.dataItem.index);
+    });
+
+
+
+
+    // // for visual presentation, Math.random() changes the data 
+    setInterval(() => {
+        am4core.array.each(chart.data, (item) => {
+            // console.log('item.awards Before:', item.awards)
+
+            item.awards *= Math.random() * 0.5 + 0.5;
+            // console.log('item.awards after Math.random():', item.awards)
+            item.awards += 10;
+            // console.log('item.awards Final:', item.awards)
+        })
+        chart.invalidateRawData();
+    }, 3000)
+
+    categoryAxis.sortBySeries = series;
+
+    chart.cursor = new am4charts.RadarCursor();
+    chart.cursor.behavior = "none";
+    chart.cursor.lineX.disabled = true;
+    chart.cursor.lineY.disabled = true;
+
+    var title = chart.titles.create();
+    title.text = "The number of awards for each country randomly changes every 3 mls for Awesome Visual Effect";
+    title.fontSize = 25;
+    title.marginBottom = 30;
+
+    // /* Add legend */
+    // chart.legend = new am4charts.Legend();
+
+    /* Add cursor */
+    chart.cursor = new am4charts.RadarCursor();
+});
