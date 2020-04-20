@@ -10,6 +10,7 @@ body {
   background-image: url('https://www.freevector.com/uploads/vector/preview/23952/DD-Blurred-Bokeh-Background-50023-Preview.jpg');
   /* background-image: url('https://i.pinimg.com/474x/da/25/d1/da25d1912f92791e37f80de02628258a.jpg'); */
   height: 100%;
+  width: 100%;
 
   /* Center and scale the image nicely */
   background-position: center;
@@ -39,11 +40,11 @@ body {
   background-color: rgb(255, 255, 255, 0.2);
 }
 
-.container {
+.container-fluid {
+  width: 96%;
   background-color: rgb(255, 255, 255, 0.95);
-
-  /* background-color: rgb(255, 255, 255, 0.95); */
-  opacity: 0.9;
+  margin: 1% 2% 1% 2%;
+  opacity: 0.8;
 }
 
 img {
@@ -102,8 +103,29 @@ h2 {
 .year-selector {
   background-image: url('https://i.pinimg.com/736x/46/2d/ac/462dacc62461b7803b36d40fc39337f6.jpg');
   padding: 1%;
+  color: white;
+  text-shadow: 2px 2px 5px #000000;
+  opacity: 0.8;
+  width: 100%;
+  margin-top: -4%;
 }
-
+.country-selector {
+  background-image: url('https://i.pinimg.com/736x/46/2d/ac/462dacc62461b7803b36d40fc39337f6.jpg');
+  padding: 1%;
+  margin-bottom: 5%;
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
+  opacity: 0.8;
+  width: 100%;
+}
+.animation-selector {
+  background-image: url('https://i.pinimg.com/736x/46/2d/ac/462dacc62461b7803b36d40fc39337f6.jpg');
+  padding: 1%;
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
+  opacity: 0.8;
+  width: 100%;
+}
 select {
   width: 200px;
   font-size: 20px;
@@ -136,4 +158,10 @@ strong {
 #chartdiv {
   width: 100%;
   height: 600px;
+}
+
+#chartdiv2 {
+  width: 100%;
+  height: 500px;
+  margin-top: 5%;
 }

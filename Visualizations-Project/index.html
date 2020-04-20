@@ -2,9 +2,10 @@
 <html lang="en-us">
   <head>
     <meta charset="UTF-8">
-    <title>NOBEL</title>
+    <title>NOBEL PRIZE DATA VISUALIZATION</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.js" integrity="sha256-nnFnuz7rC1JLnvsb8M7A9aXcRHTpUN4vYA26t2UO+dQ=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js" integrity="sha256-hBMojZuWKocCflyaG8T19KBq9OlTlK39CTxb8AUWKhY=" crossorigin="anonymous"></script>
+    
     <!--Plotly-->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
@@ -31,9 +32,10 @@
     <!-- Add icon library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
-    <!-- Resources -->
+    <!-- AM Charts -->
     <script src="https://www.amcharts.com/lib/4/core.js"></script>
     <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://www.amcharts.com/lib/4/plugins/wordCloud.js"></script>
     <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
 
     <!-- Our CSS -->
@@ -55,13 +57,15 @@
       <a class="nav-item nav-link active" href="#home">Home <span class="sr-only">(current)</span></a>
       <a class="nav-item nav-link" href="#byYear">By Year</a>
       <a class="nav-item nav-link" href="#byCountry">By Country</a>
+      <a class="nav-item nav-link" href="#animation">Animation</a>
+
       <a class="nav-item nav-link" href="#contact">Contact</a>
     </div>
   </div>
 </nav>
 
 
-<div id ="home" class="jumbotron container">
+<div id ="home" class="jumbotron container-fluid">
   <!-- Hero img -->
  <img src='https://media-exp1.licdn.com/dms/image/C4E1BAQEjuczV2AIBeg/company-background_10000/0?e=2159024400&v=beta&t=QdPep27nqzTwonaSFjT5o8XkPz6KTHY6jft5GCk3HQw'>
 
@@ -85,17 +89,18 @@
 
 
 <!-- year selector--> 
-<div id="byYear" class="jumbotron container">
+<div id="byYear" class="jumbotron container-fluid">
      <div class="row">
        <div class="col-sm-12 col-md-12 col-lg-12 p-5">
          <div class="well text-center year-selector">
-           <h4>Select a year</h4>
+           <h3>Select a year</h3>
+
            <select id="selDataset"  class="dropdown-content" onchange="optionChanged(this.value)"></select>
+           
          </div>
        </div>
 
         <!-- generating cards by year -->
-        
        <div id="prizeByYear" class="row">
        </div>
        </div>
@@ -108,8 +113,10 @@
 
 
 <!-- Interactive charts -->
-  <div id="byCountry" class="jumbotron container">
-
+  <div id="byCountry" class="jumbotron container-fluid">
+    <div class="well text-center country-selector">
+      <h3>Select a country by clicking on any bubble in the top chart </h3>
+    </div>
     <div class="row">
         <!-- bubble plot -->
         <div class="col-sm-12 col-md-12 col-lg-12">
@@ -126,12 +133,29 @@
           <p class="mapTitle"></p>
           <div id="map"></div>
        </div>
+      </div>
+    </div>
 
-       <!-- radar -->
+
+
+    <!-- Animated charts -->
+       <!-- radar chart -->
+      <div id="animation" class="jumbotron container-fluid">
+        <div class="well text-center animation-selector">
+          <h3>Animated charts </h3>
+        </div>
+        <div class="row">
        <div class="col-sm-12 col-md-12 col-lg-12">
         <div id="chartdiv"></div>
       </div>
      
+        <!-- cloud chart -->
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <div id="chartdiv2"></div>
+        </div>
+      </div>
+    </div>
+
     </div>
 
   </div>
@@ -142,17 +166,15 @@
 <!-- Contact Section -->
 <!-- Footer -->
 <!-- Footer -->
-<footer class="page-footer font-small text-center special-color-dark pt-4">
 
   <!-- Footer Elements -->
-  <div id="contact" class="container">
+  <div id="contact" class="container-fluid text-center p-3">
     <p>Lets get in touch. Send me a message:</p>
     <a href='mailto:sachuklina@gmail.com'><i class="fa fa-envelope fa-4x "></i></a>
     <a href='https://github.com/LinaSachuk'><i class="fa fa-github fa-4x "></i></a>
     <a href='https://www.linkedin.com/in/lina-sachuk-346938103/'><i class="fa fa-linkedin fa-4x"></i></i></a>
   
   </div>
-</footer>
  
 
 
@@ -178,7 +200,7 @@
     <script type="text/javascript" src="static/js/config.js"></script>
       <!-- JS  -->
     <script type="text/javascript" src="static/js/logic.js"></script>
-    <!-- <script type="text/javascript" src="static/js/logic2.js"></script>  -->
+    <script type="text/javascript" src="static/js/logic2.js"></script> 
     <!-- <script type="text/javascript" src="static/js/esriMap.js"></script> -->
     <!-- <script type="text/javascript" src="static/js/logic4.js"></script> -->
 

@@ -101,7 +101,7 @@ function myPlot(fyear = '2003') {
 
             d3.csv("../static/data/nobel.csv", function (data) {
                 csvData = data;
-                console.log('csvData:', data)
+                // console.log('csvData:', data)
 
                 d3.json('../static/data/countries.json', function (coordinates) {
                     console.log('coordinates:', coordinates)
@@ -238,6 +238,12 @@ function myPlot(fyear = '2003') {
 
                     // refreshing prizeByYear_cards
                     prizeByYear_cards.html('');
+
+                    d3.select('#prizeByYear')
+                        .html('<h4 class="col-sm-12 col-md-12 col-lg-12 p-3">Click on any card to change  background color. Blue - all laureates are male. Pink - one or more laureates are female. Gold - awarded to organizations. Double Click on any card to see a sweet alert</h4>')
+
+
+
 
 
                     // Add cards with info for year
@@ -664,7 +670,6 @@ myPlot()
 
 // Radar Chart
 am4core.ready(function () {
-
     // Themes begin
     am4core.useTheme(am4themes_animated);
     // Themes end
@@ -830,8 +835,9 @@ am4core.ready(function () {
     chart.cursor.lineY.disabled = true;
 
     var title = chart.titles.create();
-    title.text = "The number of awards for each country randomly changes every 3 mls for Awesome Visual Effect";
+    title.text = "The number of awards for each country randomly changes every 3 mls for visual effect";
     title.fontSize = 25;
+    title.fill = '#ac434e';
     title.marginBottom = 30;
 
     // /* Add legend */
