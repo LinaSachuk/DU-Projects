@@ -6,5 +6,6 @@
     ],
     "cSpell.ignoreWords": [
         "flask"
-    ]
+    ],
+    "liveServer.settings.port": 5501
 }
