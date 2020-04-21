@@ -53,7 +53,7 @@ d3.csv("../static/data/nobel.csv", function (data) {
         title.fontSize = 25;
         title.fill = '#ac434e';
         title.marginBottom = 60;
-        title.marginTop = 60;
+        title.marginTop = 40;
 
     }); // end am4core.ready()
 
